@@ -1,0 +1,24 @@
+{
+  "dependencies": {
+    "inquirer": "^8.2.4",
+    "jest": "^28.1.3"
+  },
+  "name": "time-saving-team-profile-generator",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sammooreprogramming/Time-Saving-Team-Profile-Generator.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sammooreprogramming/Time-Saving-Team-Profile-Generator/issues"
+  },
+  "homepage": "https://github.com/sammooreprogramming/Time-Saving-Team-Profile-Generator#readme",
+  "description": ""
+}
