@@ -1,92 +1,75 @@
-// declare requirements and also other variables
+// declare requirements and also other variables //
 const inquirer = require("inquirer");
 const fs = require("fs");
 const Employee = require("./lib/Employee");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 const Manager = require("./lib/Manager");
-const arrayOfSquad = [];
+const arrayOfTeam = [];
 
-// create a first question for the prompts
-function renderApp () {
-
-    function arrayFirstQuesion () {
-        inquirer.prompt({
-            type: "list",
-            name: "position",
-            message: "Please select a position for your team member.",
-            choices: ["Manager, Engineer", "Intern", "End Team"]
-        })
-    }
- 
-    function managerPrompt() {
-
-       [
-            {
+// create a first question for the prompts //
+const managerQuestionsArray = () => {
+    return inquirer.prompt([
+        {
+        type: "input",
+        name: "managersname",
+        message: "What is the name of your team manager?",
+        validate: nameInput => {
+            if (nameInput) {
+                return true;
+            } else {
+                console.log("Please enter the name of your team manager.")
+                
+            }
+            }
+        },
+        {
             type: "input",
-            name: "managersname",
-            message: "What is the name of your team manager?",
-            when: (input) => input.name === "Manager",
+            name: "managerid",
+            message: "What is employee ID of your team manager?",
             validate: nameInput => {
                 if (nameInput) {
                     return true;
                 } else {
-                    console.log("Please enter the name of your team manager.")
+                    console.log("Please enter the employee ID of your team manager.")
                     
                 }
             }
-            },
-            {
-                type: "input",
-                name: "managerid",
-                message: "What is employee ID of your team manager?",
-                when: (input) => input.id === "Manager",
-                validate: nameInput => {
-                    if (nameInput) {
-                        return true;
-                    } else {
-                        console.log("Please enter the employee ID of your team manager.")
-                        
-                    }
-                }
-            },
-            {
-                type: "input",
-                name: "manageremail",
-                message: "What is email address of your team manager?",
-                when: (input) => input.email === "Manager",
-                validate: nameInput => {
-                    if (nameInput) {
-                        return true;
-                    } else {
-                        console.log("Please enter the email address of your team member.")
-                        
-                    }
-                }
-            },
-            {
-                type: "input",
-                name: "manageroffice",
-                message: "What is office number of your team manager?",
-                when: (input) => input.office === "Manager",
-                validate: nameInput => {
-                    if (nameInput) {
-                        return true;
-                    } else {
-                        console.log("Please enter the office number of your team manager.")
-                        
-                    }
+        },
+        {
+            type: "input",
+            name: "manageremail",
+            message: "What is email address of your team manager?",
+            validate: nameInput => {
+                if (nameInput) {
+                    return true;
+                } else {
+                    console.log("Please enter the email address of your team member.")
+                    
                 }
             }
-        ]
+        },
+        {
+            type: "input",
+            name: "manageroffice",
+            message: "What is office number of your team manager?",
+            validate: nameInput => {
+                if (nameInput) {
+                    return true;
+                } else {
+                    console.log("Please enter the office number of your team manager.")
+                    
+                }
+            }
         }
+        ]);
+    
     }
     
-    
 
-    // create array for the employee specific questions
-    function employeePrompt () {
-        [
+// create array for the Intern/Engineer specific questions //
+const employeeQuestionsArray = () => {
+    return inquirer.prompt([
         {
         type: "input",
         name: "name",
@@ -124,7 +107,7 @@ function renderApp () {
             } else {
                 console.log("please enter the email of this employee.")
             } 
-        }
+            }
         },
         {
         type: "input",
@@ -134,7 +117,8 @@ function renderApp () {
         validate: nameInput => {
             if (nameInput) 
                 return true;
-            } 
+             else console.log("Please enter the GitHub username of this employee.")
+        }
         },
         {
         type: "input",
@@ -149,21 +133,8 @@ function renderApp () {
                 }
             }
         },
-        ];
-
-        arrayFirstQuestion();
-
-        if (arrayFirstQuestion.answers.position === "Manager") {
-            return inquirer.prompt(arrayManagerQuestions);
-
-        } else if (arrayFirstQuestion.answers.position === "Engineer" || "Intern") {
-            return inquirer.prompt(arrayEmployeeQuestions);
-            
-        } else console.log("Team Concluded.");
-
-    }
+        ]);
+}
         
 
- 
-
-// renderApp();
+// render the response data //
