@@ -4,53 +4,63 @@ const Employee = require("../lib/Employee");
 // tests whether or not an object is created //
 test("Checks for the creation of an Employee object", () => {
     const employee = new Employee();
-    expect(typeof(employee)).toBe("object");
+    expect(typeof(employee)).toEqual("object");
 })
 
-// name is tested for functionality correctness //
+
+// name is tested for functionality correctness from constructor function //
 test("Tests for the name of the employee", () => {
-    const employee = new Employee("Naruto Uzumaki");
-    const name = "Naruto Uzumaki";
-// using expect to get the user name input //
-    expect(employee.name).toEqual(name);
+    const name = "Sasuke Uchiha";
+    const employee = new Employee();
+// using expect to write test parameters the user name input //
+    expect(employee.name).toBe(name);
 });
 
-// retrieves the name from the getName(). //
-    test("Tests to see if the name is retrieved by the program", () => {
-        const exampleName = "Sasuke Uchiha";
-        const employee = new Employee(exampleName);
 
-        expect(employee.getName()).toBe(exampleName);
+// retrieves the name from using the getName() method. //
+    test("Tests to see if the name is retrieved by the program", () => {
+        const testName = "Sasuke Uchiha";
+        const employee = new Employee(testName);
+// using expect to make the testName be retrieved by the program //
+        expect(employee.getName()).toBe(testName);
     })
 
 
 // ID is tested for functionality correctness //
 test("Tests for the ID of the employee", () => {
-    const employee = new Employee("Naruto Uzumaki", id);
     const id = 1;
+    const employee = new Employee("Naruto Uzumaki", id);
 // using expect to get the user ID input //
     expect(employee.id).toBe(id);
 });
+
 
 // retrieves the ID from the getID() method //
 test("Tests to see if the name is retrieved by the program", () => {
     const exampleId = 1;
     const employee = new Employee("Naruto Uzumaki", exampleId)
+// using expect to using expect to make the testName be retrieved by the program //
+expect(employee.getName()).toBe(exampleId); 
 })
+
 
 // email is tested for functionality correctness //
 test("Tests for the email of the employee", () => {
-    const employee = new Employee("Naruto", 7, "NarutoMail@konoha.com");
+    const employee = new Employee("Naruto", 1, "NarutoMail@konoha.com");
     const email = "uzumakiMail@konoha.com"
 // using expect to get the user email input //
     expect(employee.email).toBe(email);
 });
 
+
 // retrieves the email from the getEmail() method //
 test("Tests to see if the email is retrieved by the program.", () => {
     const exampleEmail = "NarutoMail@konoha.com";
     const employee = new Employee("Naruto", exampleEmail)
+    //  //
+    expect(employee.getEmail()).toBe(exampleEmail);
 })
+
 
 // position is tested for functionality correctness //
 test("Tests for the position of the employee", () => {

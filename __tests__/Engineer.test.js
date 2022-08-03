@@ -9,7 +9,7 @@ test("Tests whether a github is able to be created", () => {
     expect(typeof(engineer)).toEqual("object");
 });
 
-// This will retrieve the github username from the engineer. //
+// This test will see if the application is retrieving the github username from the engineer. //
 test("Tests whether the github username is retrieved.", () => {
     const githubExampleTest = "sammooreprogramming";
     const engineer = new Engineer("Sasuke Uchiha", 2, "sasukeuchiha@konohamail.com", githubExampleTest);
