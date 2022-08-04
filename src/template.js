@@ -1,5 +1,5 @@
 // Skeleton code for the template creation function //
-const htmlTemplate = function(everyCard) {
+const htmlTemplate = function(profileCards) {
     return `
 <!DOCTYPE html>
 <html lang="en">
@@ -88,7 +88,7 @@ const createIntern = function (intern) {
 
 // this will connect the cards to the HTML page. //
 createHTML = (data) => {
-    const generatedArray = [];
+const generatedArray = [];
 // for loop to iterate over the cards and create final array of data for the cards. //
  for (let i = 0; i < data.length; i++) {
 // constant assignments // 
@@ -114,10 +114,11 @@ if (role === 'Intern') {
 }
  }
 
- //  //
- const allCards = generatedArray.join("");
+ // all data transferred to profileCards and created team //
+const profileCards = generatedArray.join("");
+const createTeam = htmlTemplate(profileCards);
+return createTeam;
 }
 
-const create
 
 module.exports = createHTML;
