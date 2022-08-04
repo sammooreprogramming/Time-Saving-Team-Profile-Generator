@@ -1,25 +1,30 @@
 // constant Employee is required for functionality //
 const Intern = require("../lib/Intern");
 
+// Intern object functionality test //
+test("Tests the functionality of the Intern object", () => {
+    const employee = new Intern("Naruto Uzumaki", 1, "NarutoMail@konoha.com", "SMU")
+// Statement is expected to return the name of the Intern //
+    expect(employee.name).toBe("Naruto Uzumaki");
+// Statement is expected to return the ID of the Intern //
+    expect(employee.id).toEqual(expect.any(Number));
+// Statement is expected to return the emailaddress of the Intern //
+    expect(employee.email).toEqual(expect.any(String));
+// Statement is expected to return the education of the Intern //
+    expect(employee.education).toEqual(expect.any(String));
+})
 
-// Test should show a functioning constructor based school retrieval of education //
-test("Tests to see if the program can set the intern's school", () => {
-const exampleValue = "SMU";
-const employee = new Intern("Sam", 1, "testemail@gmail.com", exampleValue);
-expect(employee.getEducation()).toBe(exampleValue);
+// Test runs through each method related to the Intern //
+test("Tests all methods related to intern class", () => {
+    const employee = new Intern("Naruto Uzumaki", 1, "NarutoMail@konoha.com", "SMU");
+
+    expect(employee.getName()).toBe(employee.name);
+
+    expect(employee.getId()).toBe(employee.id);
+
+    expect(employee.getEmail()).toBe(employee.email);
+
+    expect(employee.getEducation()).toBe(employee.school);
+
+    expect(employee.getPosition()).toBe("Intern");
 });
-
-
-// Test should show whether the program can set the intern's position correctly //
-test("Test to see if the position can be retrieved from the intern's school", () => {
-    const exampleValue = "Intern";
-    const employee = new Intern("Sam", 1, "testemail@gmail.com", exampleValue)
-    expect(employee.getPosition()).toBe(exampleValue);
-    });
-
-// Test to see if the program can retrieve the education from the intern's input on their education. //
-    test("Tests whether the program can set the education for Interns", () => {
-        const exampleValue = "SMU";
-        const employee = new Intern("Sam", 1, "testemail@gmail.com", exampleValue)
-        expect(employee.getEducation()).toBe(exampleValue);
-    });

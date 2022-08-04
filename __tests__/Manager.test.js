@@ -1,27 +1,30 @@
 // required for functionality. //
 const Manager = require("../lib/Manager");
-const Employee = require("../lib/Employee");
-const { default: test } = require("node:test");
 
-
-// Tests for an office number from a constructor //
-test("Tests for the office number from a constructor", () => {
-    const exampleValue = 50;
-    const employee = new Manager("employee", 50, "testmail@gmail.com", exampleValue);
-    
-    expect(employee.office).toBe(exampleValue);
+// Tests for all of the Manager creation propreties //
+test("Tests new Manager generation", () => {
+// returns new Manager object //
+    const employee = new Manager("Naruto Uzumaki", 1, "NarutoMail@konohamail.com", 1);
+// Statement is expected to return the name of the manager //
+    expect(employee.name).toBe("Naruto Uzumaki");
+// Statement is expected to return the ID of the manager //
+    expect(employee.id).toEqual(expect.any(Number));
+// Statement is expected to return the email of the manager //
+    expect(employee.email).toEqual(expect.any(String));
+// Statement is expected to return the office of the manager //
+    expect(employee.office).toEqual(expect.any(Number));
 });
 
-// Tests for the retrieving of the office number. //
-test("Tests for the office number being pulled from user input", () => {
-    const exampleValue = 50;
-    const employee = new Manager("employee", 50, "testmail@gmail.com", exampleValue);
+test("Tests through the methods in the lib folder", () => {
+    const employee = new Manager("Naruto Uzumaki", 1, "NarutoMail@konohamail.com", 1);
+// Statement is expected to return through the methods in the lib folder //
+    expect(employee.getName()).toBe(employee.name);
 
-    expect(employee.getOffice()).toBe(exampleValue);
-});
+    expect(employee.getId()).toBe(employee.id);
 
-// Tests for the Manager's position //
-test("Tests for the Manager return by getPosition()", () => {
-    const exampleValue = "Manager";
-    const employee = new Manager("employee", 1, "testemail@gmail.com", exampleValue);
+    expect(employee.getEmail()).toBe(employee.email);
+
+    expect(employee.getOffice()).toBe(employee.office);
+
+    expect(employee.getPosition()).toBe("Manager")
 });

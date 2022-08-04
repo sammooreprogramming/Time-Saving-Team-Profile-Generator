@@ -1,27 +1,29 @@
 // Engineer constructor required. //
 const Engineer = require('../lib/Engineer');
 
-// Tests this to see if the program is able to create a github username. //
-test("Tests whether a github is able to be created", () => {
-    const githubExampleTest = "sammooreprogramming";
-    const engineer = new Engineer("Sasuke Uchiha", 2, "sasukeuchiha@konohamail.com", githubExampleTest);
-// This test expects the github username to equal a string.
-    expect(typeof(engineer)).toEqual("object");
-});
+// Tests this to see if the program is able to create an Engineer object from the constructor. //
+test("Tests the construnctor function's ability to make an Engineer object", () => {
+    const employee = new Engineer("Sasuke Uchiha", 11, "sasuke@konohamail.com", "Sauske");
+// Test run through the expectations //
+    expect(employee.name).toBe("Sasuke Uchiha");
 
-// This test will see if the application is retrieving the github username from the engineer. //
-test("Tests whether the github username is retrieved.", () => {
-    const githubExampleTest = "sammooreprogramming";
-    const engineer = new Engineer("Sasuke Uchiha", 2, "sasukeuchiha@konohamail.com", githubExampleTest);
-// This test expects the github username to be found by the program. //
-    expect(engineer.getGithub()).toEqual(githubExampleTest);
-});
+    expect (employee.id).toEqual(expect.any(Number()));
 
-// This tests for the position of the engineer. //
-test("This tests for the position of the employee", () => {
-    const confirmation = "Engineer";
-    const githubExampleTest = "sammooreprogramming";
-    const employee = new Engineer("Sasuke Uchiha", 2, "sasukeuchiha@konohamail.com", githubExampleTest);
+    expect(employee.email).toEqual(expect.any(String));
 
-    expect(employee.getPosition()).toEqual(confirmation);
-});
+    expect (employee.github).toEqual(expect.any(String));
+})
+
+test("Tests through the methods of the constructor function in the lib file.", () => {
+    const employee = new Engineer("Sasuke Uchiha", 11, "sasuke@konohamail.com", "Sauske");
+// Tests through the methods with expectations clear //
+    expect(employee.getName()).toEqual(employee.name);
+
+    expect(employee.getId()).toEqual(employee.id);
+
+    expect(employee.getEmail()).toEqual(employee.email);
+
+    expect(employee.getGithub()).toEqual(employee.github);
+
+    expect(employee.getPosition()).toBe("Engineer");
+  })
