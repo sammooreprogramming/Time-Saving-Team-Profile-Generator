@@ -1,4 +1,32 @@
-// Begin with Manager card creaton function //
+// Skeleton code for the template creation function //
+const htmlTemplate = function(everyCard) {
+    return `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>My Team</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="index.js"></script>
+</head>
+<body>
+    <header>
+    <p>Team Profile</p>
+    </header>
+    
+    <main>
+        <div>
+            ${profileCards}
+        </div>
+    </main>
+</body>
+    `;
+}
+
+
+//  Manager card creation function //
 const createManager = function (manager) {
     return `
 <div id="container" class="col-md-3">
@@ -38,7 +66,7 @@ const createEngineer = function (engineer) {
 }
 
 // Intern card template //
-const createIntern = function (engineer) {
+const createIntern = function (intern) {
     return `
 <div id="container" class="col-md-3">
     <div id="intern-card">
@@ -58,7 +86,38 @@ const createIntern = function (engineer) {
 }
 
 
+// this will connect the cards to the HTML page. //
+createHTML = (data) => {
+    const generatedArray = [];
+// for loop to iterate over the cards and create final array of data for the cards. //
+ for (let i = 0; i < data.length; i++) {
+// constant assignments // 
+const worker = data[i];
+const position = worker.getPosition();
 
-// create a function to create an HTML page //
-profileArray = [];
+// functions are called & pushed to a new final array with if statements. //
+// Manager //
+if (position === "Manager") {
+    const cardManager  = createManager(worker);
+    generatedArray.push(cardManager);
+}
+// Engineer //
+if (position === 'Engineer') {
+    const cardEngineer = createEngineer(worker);
+    generatedArray.push(cardEngineer);
+}
 
+// Intern //
+if (role === 'Intern') {
+    const cardIntern = createIntern(worker);
+    generatedArray.push(cardIntern);
+}
+ }
+
+ //  //
+ const allCards = generatedArray.join("");
+}
+
+const create
+
+module.exports = createHTML;
