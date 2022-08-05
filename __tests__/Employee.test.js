@@ -14,7 +14,7 @@ expect(employee.email).toEqual(expect.any(String));
 
 // Tests through all methods in the constructor function in lib file. //
 test('Tests through all methods for Employee data confirmation.', () => {
-    const employee = new Employee('John Smith', 1234, 'john@smith.com');
+    const employee = new Employee("Naruto Uzumaki", 11, "narutoMail@konoha.com,");
 // expectations of the test to be executed //
     expect(employee.getName()).toEqual(employee.name);
     

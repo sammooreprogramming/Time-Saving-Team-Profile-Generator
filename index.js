@@ -9,7 +9,8 @@ const arrayForTeam =[];
 
 
 // create a first question array for the prompts of the manager //
-const managerQuestionsArray = [
+const managerQuestionsArray = 
+        [
         {
         type: "input",
         name: "managername",
@@ -62,7 +63,7 @@ const managerQuestionsArray = [
                 }
             }
         }
-        ];   
+        ];
 
     
 // create array for the Intern/Engineer specific questions //
@@ -132,6 +133,7 @@ const employeeQuestionsArray =
             }
         },
         ];
+
     
 
     // This function is used to select which type of position //
@@ -159,10 +161,16 @@ const employeeQuestionsArray =
         }
      })
  }
- 
 
-    //This function renders the entire application
-        function renderApplication() {
+            askTeamPosition();
+            
+            if ((input) => input.position === "Manager") {
+                renderManager();
+            } else if ((input) => input.position === "Engineer") {
+                renderEngineer();
+            } else if((input) => input.position === "Intern") {
+                renderIntern();
+            } else return htmlCreator();
 
             function renderManager() {
                 inquirer.prompt(managerQuestionsArray)
@@ -196,20 +204,15 @@ const employeeQuestionsArray =
                     }
                 }    
 
-            
+                // This writes the file //
                 function htmlCreator () {
                     fs.writeFileSync(outputPath, createHTML(arrayForTeam), "UTF-8")
                     console.log("Created Team Profile!")
                 }
                 
-                if ((input) => input.position === "Manager") {
-                    renderManager();
-                } else if ((input) => input.position === "Engineer") {
-                    renderEngineer();
-                } else if((input) => input.position === "Intern") {
-                    renderIntern();
-                }else return htmlCreator();
+                
 
-            }
+                
+            
 
-            renderApplication();
+            
