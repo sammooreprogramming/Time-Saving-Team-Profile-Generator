@@ -74,113 +74,69 @@ const employeeQuestionsArray =
         name: "name",
         message: "Please enter the name of this employee.",
         when: (input) => input.position === "Engineer" || "Intern",
-        validate: nameInput => {
-            if (nameInput) {
-                return true;
-            } else {
-                console.log("please enter the name of this employee.")
-            } 
-        }
         },
         {
         type: "input",
         name: "id",
         message: "please enter the ID of this employee.",
         when: (input) => input.position === "Engineer" || "Intern",
-        validate: nameInput => {
-            if (nameInput) {
-                return true;
-            } else {
-                console.log("please enter the ID of this employee.")
-            } 
-        }
         },
         {
         type: "input",
          name: "email",
         message: "please enter the email of this employee.",
         when: (input) => input.position === "Engineer" || "Intern",
-        validate: nameInput => {
-            if (nameInput) {
-                return true;
-            } else {
-                console.log("please enter the email of this employee.")
-            } 
-            }
         },
         {
         type: "input",
         name: "GitHub",
         message: "Please enter the GitHub username of this employee.",
         when: (input) => input.position === "Engineer",
-        validate: nameInput => {
-            if (nameInput) 
-                return true;
-             else console.log("Please enter the GitHub username of this employee.")
-        }
         },
         {
         type: "input",
         name: 'education',
         message: "Please enter the university or the education of this intern.",
         when: (input) => input.position === "Intern",
-        validate: nameInput => {
-            if (nameInput) {
-                return true;
-                } else {
-                    console.log ("Please enter the university or the education of this intern.")
-                }
-            }
         },
         ];
 
-    
 
-    // This function is used to select which type of position //
-    // and to punctuate the code and force it back to the prompt, once finished. //
+    
+    
     function askTeamPosition() {
     return inquirer.prompt([
      {
      type: "list",
      message: "What type of employee would you like to add to your team?",
      name: "employeetype",
-     choices: ["Manager", "Engineer", "Intern", "No additional team members."]
+     choices: ["Engineer", "Intern", "Add another team member", "No additional team members."]
      }]).then(function (userInput) {
         switch(userInput.employeetype) {
-            case "Manager":
-                renderManager();
-                break;
             case "Engineer":
                 renderEngineer();
                 break;
             case "Intern":
                 renderIntern();
                 break;
-
+            case "Add another team member":
+                askTeamPosition();
+                break;
+            case "No additional team members":
             default: htmlCreator();
         }
      })
  }
 
-            askTeamPosition();
             
-            if ((input) => input.position === "Manager") {
-                renderManager();
-            } else if ((input) => input.position === "Engineer") {
-                renderEngineer();
-            } else if((input) => input.position === "Intern") {
-                renderIntern();
-            } else return htmlCreator();
-
             function renderManager() {
-                inquirer.prompt(managerQuestionsArray)
-            (answers => {
+                inquirer.prompt(managerQuestionsArray).then((answers => {
                 
                 const manager = new Manager(answers.managername, answers.managerid, answers.manageremail, answers.office);
                 arrayForTeam.push(manager);
                 askTeamPosition();
-            });
-            }
+            }))
+        }
 
             function renderEngineer() {
                 inquirer.prompt(employeeQuestionsArray);
@@ -206,13 +162,8 @@ const employeeQuestionsArray =
 
                 // This writes the file //
                 function htmlCreator () {
-                    fs.writeFileSync(outputPath, createHTML(arrayForTeam), "UTF-8")
+                    fs.writeFile("index.html", createHTML(arrayForTeam), "UTF-8")
                     console.log("Created Team Profile!")
                 }
-                
-                
 
-                
-            
-
-            
+                renderManager();
