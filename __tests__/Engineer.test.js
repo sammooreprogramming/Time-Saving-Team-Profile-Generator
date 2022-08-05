@@ -12,7 +12,7 @@ test("Tests the construnctor function's ability to make an Engineer object", () 
     expect(employee.email).toEqual(expect.any(String));
 
     expect (employee.github).toEqual(expect.any(String));
-})
+});
 
 test("Tests through the methods of the constructor function in the lib file.", () => {
     const employee = new Engineer("Sasuke Uchiha", 11, "sasuke@konohamail.com", "Sauske");
@@ -26,4 +26,4 @@ test("Tests through the methods of the constructor function in the lib file.", (
     expect(employee.getGithub()).toEqual(employee.github);
 
     expect(employee.getPosition()).toBe("Engineer");
-  })
+  });

@@ -1,15 +1,15 @@
 // declare requirements and also other variables //
 const inquirer = require("inquirer");
 const fs = require("fs");
-const Employee = require("./lib/Employee");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 const Manager = require("./lib/Manager");
+const createHTML = require("./src/template.js")
+const arrayForTeam =[];
 
 
-// create a first question for the prompts //
-const managerQuestionsArray = () => {
-    return inquirer.prompt([
+// create a first question array for the prompts of the manager //
+const managerQuestionsArray = [
         {
         type: "input",
         name: "managername",
@@ -62,14 +62,12 @@ const managerQuestionsArray = () => {
                 }
             }
         }
-        ]);
-    
-    }
-    
+        ];   
 
+    
 // create array for the Intern/Engineer specific questions //
-const employeeQuestionsArray = () => {
-    return inquirer.prompt([
+const employeeQuestionsArray = 
+        [
         {
         type: "input",
         name: "name",
@@ -133,8 +131,85 @@ const employeeQuestionsArray = () => {
                 }
             }
         },
-        ]);
-}
-        
+        ];
+    
 
-// render the response data //
+    // This function is used to select which type of position //
+    // and to punctuate the code and force it back to the prompt, once finished. //
+    function askTeamPosition() {
+    return inquirer.prompt([
+     {
+     type: "list",
+     message: "What type of employee would you like to add to your team?",
+     name: "employeetype",
+     choices: ["Manager", "Engineer", "Intern", "No additional team members."]
+     }]).then(function (userInput) {
+        switch(userInput.employeetype) {
+            case "Manager":
+                renderManager();
+                break;
+            case "Engineer":
+                renderEngineer();
+                break;
+            case "Intern":
+                renderIntern();
+                break;
+
+            default: htmlCreator();
+        }
+     })
+ }
+ 
+
+    //This function renders the entire application
+        function renderApplication() {
+
+            function renderManager() {
+                inquirer.prompt(managerQuestionsArray)
+            (answers => {
+                
+                const manager = new Manager(answers.managername, answers.managerid, answers.manageremail, answers.office);
+                arrayForTeam.push(manager);
+                askTeamPosition();
+            });
+            }
+
+            function renderEngineer() {
+                inquirer.prompt(employeeQuestionsArray);
+                if ((input) => input.position === "Engineer") {
+                    (answers => {
+                        const engineer = new Engineer(answers.name, answers.id, answers.email, answers.github)
+                        arrayForTeam.push(engineer)
+                        askTeamPosition();
+                    });
+                } 
+                }
+
+                function renderIntern() {
+                    inquirer.prompt(employeeQuestionsArray);
+                    if ((input) => input.position === "Intern") {
+                        (answers => {
+                            const intern = new Intern(answers.name, answers.id, answers.email, answers.education)
+                            arrayForTeam.push(intern);
+                            askTeamPosition()
+                        });
+                    }
+                }    
+
+            
+                function htmlCreator () {
+                    fs.writeFileSync(outputPath, createHTML(arrayForTeam), "UTF-8")
+                    console.log("Created Team Profile!")
+                }
+                
+                if ((input) => input.position === "Manager") {
+                    renderManager();
+                } else if ((input) => input.position === "Engineer") {
+                    renderEngineer();
+                } else if((input) => input.position === "Intern") {
+                    renderIntern();
+                }else return htmlCreator();
+
+            }
+
+            renderApplication();
