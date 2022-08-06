@@ -101,16 +101,15 @@ const employeeQuestionsArray =
         },
         ];
 
+       renderManager();
 
-    
-    
-    function askTeamPosition() {
-    return inquirer.prompt([
+function askTeamPosition() {
+    inquirer.prompt([
      {
      type: "list",
      message: "What type of employee would you like to add to your team?",
      name: "employeetype",
-     choices: ["Engineer", "Intern", "Add another team member", "No additional team members."]
+     choices: ["Engineer", "Intern", "No additional team members."]
      }]).then(function (userInput) {
         switch(userInput.employeetype) {
             case "Engineer":
@@ -119,11 +118,8 @@ const employeeQuestionsArray =
             case "Intern":
                 renderIntern();
                 break;
-            case "Add another team member":
-                askTeamPosition();
-                break;
             case "No additional team members":
-            default: htmlCreator();
+            default: htmlCreator(userInput);
         }
      })
  }
@@ -139,31 +135,30 @@ const employeeQuestionsArray =
         }
 
             function renderEngineer() {
-                inquirer.prompt(employeeQuestionsArray);
-                if ((input) => input.position === "Engineer") {
-                    (answers => {
-                        const engineer = new Engineer(answers.name, answers.id, answers.email, answers.github)
-                        arrayForTeam.push(engineer)
-                        askTeamPosition();
+                inquirer.prompt(employeeQuestionsArray).then(answers => {
+
+                    const engineer = new Engineer(answers.name, answers.id, answers.email, answers.github)
+                    arrayForTeam.push(engineer)
+                    askTeamPosition();
                     });
-                } 
-                }
+            }
 
                 function renderIntern() {
-                    inquirer.prompt(employeeQuestionsArray);
-                    if ((input) => input.position === "Intern") {
-                        (answers => {
-                            const intern = new Intern(answers.name, answers.id, answers.email, answers.education)
-                            arrayForTeam.push(intern);
-                            askTeamPosition()
-                        });
-                    }
-                }    
+                    inquirer.prompt(employeeQuestionsArray).then(answers => {
 
-                // This writes the file //
-                function htmlCreator () {
-                    fs.writeFile("index.html", createHTML(arrayForTeam), "UTF-8")
-                    console.log("Created Team Profile!")
+                        const intern = new Intern(answers.name, answers.id, answers.email, answers.education)
+                        arrayForTeam.push(intern)
+                        askTeamPosition();
+                       });
+                   
+                        
+                
+            }    
+
+                // This function writes the file //
+                function htmlCreator (data) {
+                    fs.writeFile("index.html", createHTML(data), (err) => {
+                        if (err) throw err;
+                        console.log("Generated your shiny new Team Profile");
+                    })
                 }
-
-                renderManager();
